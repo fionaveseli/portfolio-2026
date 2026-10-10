@@ -85,6 +85,7 @@ export function BentoGrid({ pinned, items, tiles }: BentoGridProps) {
               };
             }}
             data-slot={item.id}
+            data-cur={item.cursor}
             data-pinned={pinnedIds.has(item.id) ? "" : undefined}
             className={item.span === 2 ? "group/slot col-span-2" : "group/slot"}
           >

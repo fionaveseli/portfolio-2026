@@ -17,7 +17,7 @@ export function ContactTile() {
             <span className="text-pink">{contact.headingMark}</span>
           </span>
           <div className="flex flex-wrap gap-[2.4cqh]">
-            <Pill href={`mailto:${site.email}`} data-nodrag="" data-cursor="Say hi">
+            <Pill href={`mailto:${site.email}`} data-nodrag="" data-cur="Say hi">
               {site.email}
             </Pill>
             <Pill variant="ghost" href={site.links.linkedin} data-nodrag="">

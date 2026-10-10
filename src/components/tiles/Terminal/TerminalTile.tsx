@@ -101,7 +101,7 @@ export function TerminalTile() {
           <button
             type="button"
             data-nodrag=""
-            data-cursor={terminal.replay}
+            data-cur={terminal.replay}
             aria-label={terminal.replay}
             onClick={() => setRun((count) => count + 1)}
             className="relative ml-auto flex size-[9cqh] cursor-pointer items-center justify-center rounded-full bg-tint-soft transition-[background-color,rotate] duration-200 ease-bounce after:absolute after:-inset-3 after:content-[''] hover:-rotate-180"

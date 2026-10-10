@@ -34,7 +34,7 @@ export function ExperienceTile() {
               key={role.id}
               type="button"
               data-nodrag=""
-              data-cursor="Open"
+              data-cur="Open"
               aria-label={`${role.companyShort}, ${role.title}. Open details.`}
               className="group/row flex w-full cursor-pointer items-center gap-[4cqh] border-t border-line py-[1.9cqh] text-left transition-[padding-left] duration-300 ease-bounce hover:pl-[2.4cqh] @max-[440px]:gap-[9px]"
             >

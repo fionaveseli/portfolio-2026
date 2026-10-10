@@ -321,6 +321,13 @@
   --drag-tilt: 2.5deg;
   --drag-scale: 1.04;
   --z-dragging: 5;
+
+  /* Custom cursor */
+  --cursor-size: 14px;
+  --cursor-size-big: 44px; /* over anything with a cursor label */
+  --cursor-follow: 0.32; /* share of the remaining distance moved per frame */
+  --z-cursor: 40;
+  --z-cursor-label: 41;
 }
 
 /* Dark theme values. The switch itself is wired up in step 6. */
@@ -427,6 +434,61 @@
   }
 }
 
+/*
+ * Custom cursor (src/components/cursor/CustomCursor.tsx). Hidden until the first real
+ * mouse move sets <html data-pointer="mouse">; never shown for touch.
+ */
+@utility cursor-dot {
+  position: fixed;
+  inset: 0 auto auto 0;
+  overflow: visible;
+  z-index: var(--z-cursor);
+  display: none;
+  width: var(--cursor-size);
+  height: var(--cursor-size);
+  margin: calc(var(--cursor-size) / -2) 0 0 calc(var(--cursor-size) / -2);
+  border-radius: 50%;
+  background: var(--color-pink);
+  box-shadow:
+    0 0 0 2px var(--color-paper),
+    0 4px 10px rgb(0 0 0 / 0.18);
+  pointer-events: none;
+  transition:
+    width 0.3s var(--ease-bounce),
+    height 0.3s var(--ease-bounce),
+    margin 0.3s var(--ease-bounce);
+
+  &[data-big] {
+    --cursor-size: var(--cursor-size-big);
+  }
+
+  :where(html[data-pointer="mouse"]) & {
+    display: block;
+  }
+}
+
+@utility cursor-label {
+  position: fixed;
+  inset: 0 auto auto 0;
+  overflow: visible;
+  z-index: var(--z-cursor-label);
+  display: none;
+  margin: 20px 0 0 18px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font: 500 12px / 1.2 var(--font-sans);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+
+  :where(html[data-pointer="mouse"]) & {
+    display: block;
+  }
+}
+
 /* Sheet header: every child rises in together. */
 @utility rise-children {
   & > * {
@@ -472,6 +534,12 @@
     transition:
       background-color var(--duration-theme-bg),
       color var(--duration-theme-fg);
+  }
+
+  /* The custom cursor replaces the native one once a mouse is detected. */
+  html[data-pointer="mouse"],
+  html[data-pointer="mouse"] * {
+    cursor: none !important;
   }
 
   /* Freeze the page behind an open sheet. */

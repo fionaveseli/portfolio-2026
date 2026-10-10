@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 
+import { CustomCursor } from "@/components/cursor/CustomCursor";
 import { site } from "@/content/site";
 
 import "./globals.css";
@@ -49,7 +50,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" className={fontVariables}>
-      <body className="font-sans text-body">{children}</body>
+      <body className="font-sans text-body">
+        {children}
+        <CustomCursor />
+      </body>
     </html>
   );
 }

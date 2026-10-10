@@ -42,7 +42,7 @@ export function ContributionsTile() {
           role="img"
           aria-label={contributions.description}
           data-nodrag=""
-          data-cursor="Commit"
+          data-cur="Commit"
           onPointerMove={(event) => hit(event, false)}
           onPointerDown={(event) => hit(event, true)}
           className="grid w-full cursor-pointer touch-manipulation grid-cols-13 gap-[1.3cqw]"

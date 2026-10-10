@@ -112,7 +112,7 @@ export function KiraTile() {
           <button
             type="button"
             data-nodrag=""
-            data-cursor={kira.newGame}
+            data-cur={kira.newGame}
             aria-label={kira.newGame}
             onClick={reset}
             className="relative flex size-[11cqh] cursor-pointer items-center justify-center rounded-full bg-well text-fg transition-[rotate] duration-400 ease-bounce after:absolute after:-inset-2.25 after:content-[''] hover:-rotate-180"
@@ -128,7 +128,7 @@ export function KiraTile() {
             <button
               key={index}
               type="button"
-              data-cursor="Play"
+              data-cur="Play"
               aria-label={squareLabel(index, mark)}
               onClick={() => play(index)}
               className={cn(
