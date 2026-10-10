@@ -37,18 +37,36 @@ const justifyClasses = {
   end: "justify-end",
 } as const;
 
+const paddingClasses = {
+  /** The standard tile padding. */
+  tile: "p-tile",
+  /** No padding: the tile sets its own through `className`. */
+  none: "",
+} as const;
+
 export interface TileBodyProps {
   /** Vertical distribution of the children. */
   justify?: keyof typeof justifyClasses;
+  padding?: keyof typeof paddingClasses;
   className?: string;
   children: ReactNode;
 }
 
 /** The padded column most tiles lay their content out in. */
-export function TileBody({ justify = "start", className, children }: TileBodyProps) {
+export function TileBody({
+  justify = "start",
+  padding = "tile",
+  className,
+  children,
+}: TileBodyProps) {
   return (
     <div
-      className={cn("absolute inset-0 flex flex-col p-tile", justifyClasses[justify], className)}
+      className={cn(
+        "absolute inset-0 flex flex-col",
+        paddingClasses[padding],
+        justifyClasses[justify],
+        className,
+      )}
     >
       {children}
     </div>

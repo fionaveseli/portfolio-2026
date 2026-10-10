@@ -1,16 +1,13 @@
 import { BentoGrid } from "@/components/grid/BentoGrid";
 import { FilterNav } from "@/components/grid/FilterNav";
 import { GridFilterProvider } from "@/components/grid/GridFilter";
-import { PlaceholderTile } from "@/components/tiles/Placeholder/PlaceholderTile";
-import { gridFilters, gridTiles, pinnedTiles } from "@/content/grid";
+import { renderTile } from "@/components/tiles/registry";
+import { gridFilters, gridItems, pinnedTiles } from "@/content/grid";
 import { site } from "@/content/site";
 
 export default function HomePage() {
   const tiles = Object.fromEntries(
-    [...pinnedTiles, ...gridTiles].map((item) => [
-      item.id,
-      <PlaceholderTile key={item.id} item={item} />,
-    ]),
+    [...pinnedTiles, ...gridItems].map((item) => [item.id, renderTile(item.id)]),
   );
 
   return (
@@ -20,7 +17,7 @@ export default function HomePage() {
         <FilterNav options={gridFilters} />
       </header>
       <main className="mx-auto max-w-page px-gutter pt-1.5 pb-14">
-        <BentoGrid pinned={pinnedTiles} items={gridTiles} tiles={tiles} />
+        <BentoGrid pinned={pinnedTiles} items={gridItems} tiles={tiles} />
         <p className="mt-7 text-center text-fine text-muted">{site.credit}</p>
       </main>
     </GridFilterProvider>

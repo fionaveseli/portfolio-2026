@@ -1,3 +1,4 @@
+import { projects } from "@/content/projects";
 import type { GridFilterOption, GridItem } from "@/types/grid";
 
 /** Always first, never dragged, never dimmed by a filter. */
@@ -28,6 +29,16 @@ export const gridTiles = [
   { id: "visiar-assist", span: 1, category: "work" },
   { id: "contact", span: 2, category: "about" },
 ] as const satisfies readonly GridItem[];
+
+const placed = new Set<string>(gridTiles.map((tile) => tile.id));
+
+/** The draggable tiles, plus any project not placed above (appended at the end). */
+export const gridItems: readonly GridItem[] = [
+  ...gridTiles,
+  ...projects
+    .filter((project) => !placed.has(project.slug))
+    .map((project) => ({ id: project.slug, span: 1, category: "work" }) as const),
+];
 
 export const gridFilters = [
   { value: "all", label: "All" },
