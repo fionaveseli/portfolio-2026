@@ -25,6 +25,7 @@
   --color-pink-soft: #fbc9da;
   --color-pink-strong: #f472a0;
   --color-pink-deep: #ee6c9c;
+  --color-on-pink: #1d1d1f; /* text on pink stays dark in both themes */
 
   /* ── Colour: sheets stay light in both themes ── */
   --color-sheet: #ffffff;
@@ -80,6 +81,11 @@
   --text-sheet-title-role--letter-spacing: -0.04em;
   --text-sheet-title-role--font-weight: 700;
 
+  --text-wordmark: 1.0625rem; /* 17px: name in the header */
+  --text-wordmark--line-height: 1.45;
+  --text-wordmark--font-weight: 700;
+  --text-wordmark--letter-spacing: -0.03em;
+
   /* ── Type: tile-relative scale (the tile is a size container) ── */
   --text-tile-label: min(5.2cqh, 6.4cqw);
   --text-tile-label--line-height: 1.2;
@@ -95,8 +101,14 @@
   --spacing-gutter: clamp(12px, 3vw, 24px); /* page side padding */
   --spacing-viewport-inset: 12px; /* min distance between a sheet and the viewport edge */
 
+  --spacing-grid-gap: 12px; /* gap between tiles with 2 columns */
+  --spacing-grid-gap-wide: 18px; /* gap with 3 or 4 columns */
+
   --container-page: 1120px;
   --container-sheet: 680px;
+  /* Grid width (not viewport) at which it gets 3 and 4 columns. */
+  --container-grid-3: 560px;
+  --container-grid-4: 900px;
 
   /* ── Radius ── */
   --radius-tile: 28px;
@@ -154,6 +166,17 @@
   --duration-tile-shadow: 0.3s;
   --delay-rise-2: 0.26s;
   --delay-rise-3: 0.34s;
+
+  /* Grid */
+  --grid-row-min: 228px; /* minimum row height with 3 or 4 columns */
+  --grid-row-min-narrow: 236px; /* minimum row height with 2 columns */
+  --duration-tile-move: 0.7s;
+  --duration-tile-fade: 0.5s;
+  --duration-tile-fade-reduced: 0.3s;
+  --opacity-dimmed: 0.24; /* tiles a filter leaves out */
+  --drag-tilt: 2.5deg;
+  --drag-scale: 1.04;
+  --z-dragging: 5;
 }
 
 /* Dark theme values. The switch itself is wired up in step 6. */
@@ -191,6 +214,70 @@
   width: min(var(--container-sheet), calc(100% - 2 * var(--spacing-viewport-inset)));
   max-width: none;
   max-height: calc(100% - 2 * var(--spacing-viewport-inset));
+}
+
+/*
+ * The bento grid. The server render and first paint are a CSS grid: dense auto-flow
+ * packs first-fit, exactly like src/lib/grid.ts. After hydration the grid engine sets
+ * data-engine="js" and positions each slot absolutely, so moves can animate.
+ */
+@utility bento-flow {
+  --bento-columns: 2;
+  --bento-gap: var(--spacing-grid-gap);
+  --bento-row-min: var(--grid-row-min-narrow);
+
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: repeat(var(--bento-columns), minmax(0, 1fr));
+  grid-auto-rows: max(
+    calc((100cqw - var(--bento-gap) * (var(--bento-columns) - 1)) / var(--bento-columns)),
+    var(--bento-row-min)
+  );
+  gap: var(--bento-gap);
+  touch-action: pan-y;
+
+  /* Container queries can't read variables: keep in sync with --container-grid-3 / -4. */
+  @container grid (min-width: 560px) {
+    --bento-columns: 3;
+    --bento-gap: var(--spacing-grid-gap-wide);
+    --bento-row-min: var(--grid-row-min);
+  }
+
+  @container grid (min-width: 900px) {
+    --bento-columns: 4;
+  }
+
+  &[data-engine="js"] {
+    display: block;
+    position: relative;
+  }
+
+  &[data-engine="js"] > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  & > [data-dimmed] {
+    opacity: var(--opacity-dimmed);
+  }
+
+  &[data-ready] > * {
+    transition:
+      transform var(--duration-tile-move) var(--ease-spring),
+      opacity var(--duration-tile-fade);
+  }
+
+  &[data-ready] > [data-dragging] {
+    z-index: var(--z-dragging);
+    transition: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &[data-ready] > * {
+      transition: opacity var(--duration-tile-fade-reduced);
+    }
+  }
 }
 
 /* Sheet header: every child rises in together. */
