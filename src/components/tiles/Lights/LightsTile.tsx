@@ -21,7 +21,7 @@ export function LightsTile() {
           aria-checked={dark}
           aria-label={lights.switchLabel}
           data-nodrag=""
-          data-cursor="Flip it"
+          data-cur="Flip it"
           onClick={() => setTheme(dark ? "light" : "dark")}
           className="group/switch relative h-[25cqh] w-[46cqh] cursor-pointer rounded-full bg-well transition-colors duration-400"
         >

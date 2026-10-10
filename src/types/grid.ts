@@ -9,6 +9,8 @@ export interface GridItem {
   readonly id: string;
   readonly span: TileSpan;
   readonly category: TileCategory;
+  /** Custom-cursor label over the tile itself, e.g. "Drag me". Pinned tiles have none. */
+  readonly cursor?: string;
 }
 
 export interface GridFilterOption {
