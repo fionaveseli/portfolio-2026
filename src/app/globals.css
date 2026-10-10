@@ -1,24 +1,249 @@
 @import "tailwindcss";
 
 /*
- * Design tokens live in this file only. Step 1 sets the page colours and font stacks;
- * step 2 adds the full set (colour, type scale, radius, shadow, spacing, easing).
+ * ───────────────────────────── Design tokens ─────────────────────────────
+ * The only file where raw design values live. Components use the utilities these
+ * generate (bg-tile, rounded-tile, shadow-tile, ease-spring, text-tile-label, p-tile …).
+ * Every value is lifted from the finished prototype (Main.dc.html).
+ *
+ * `static` emits every variable even when no utility uses it, so runtime code
+ * (sheet morph, grid) can read them with `readToken()` from src/lib/tokens.ts.
  */
-@theme {
+@theme static {
+  /* ── Colour: surfaces (light theme; dark overrides below) ── */
   --color-bg: #f5f5f7;
+  --color-tile: #ffffff;
+  --color-well: #f5f5f7;
   --color-fg: #1d1d1f;
   --color-muted: #6e6e73;
+  --color-line: #ececf0;
+  --color-ink: #111114;
+  --color-paper: #ffffff;
 
+  /* ── Colour: brand pink ── */
+  --color-pink: #f8a9c4;
+  --color-pink-soft: #fbc9da;
+  --color-pink-strong: #f472a0;
+  --color-pink-deep: #ee6c9c;
+
+  /* ── Colour: sheets stay light in both themes ── */
+  --color-sheet: #ffffff;
+  --color-sheet-fg: #1d1d1f;
+  --color-sheet-muted: #6e6e73;
+  --color-sheet-line: #ececf0;
+  --color-sheet-well: #f5f5f7;
+  --color-scrim: rgb(10 10 14 / 0.45);
+
+  /* ── Colour: translucent white on coloured or dark tiles ── */
+  --color-tint: rgb(255 255 255 / 0.16);
+  --color-tint-strong: rgb(255 255 255 / 0.22);
+
+  /* ── Colour: system (window dots, status badges, terminal) ── */
+  --color-mac-red: #ff5f57;
+  --color-mac-yellow: #febc2e;
+  --color-mac-green: #28c840;
+  --color-ok: #22a35b;
+  --color-no: #e5484d;
+  --color-idle: #c7c7cc;
+  --color-term-dim: #8e8e93;
+  --color-term-text: #c7c7cc;
+
+  /* ── Type: families ── */
   --font-sans:
     -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", var(--font-inter),
     "Helvetica Neue", sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ── Type: fixed scale ── */
+  --text-caption: 0.75rem; /* 12px */
+  --text-caption--line-height: 1.2;
+  --text-fine: 0.8125rem; /* 13px */
+  --text-fine--line-height: 1.45;
+  --text-ui: 0.875rem; /* 14px: pills, nav */
+  --text-ui--line-height: normal;
+  --text-row: 0.9375rem; /* 15px: info rows */
+  --text-row--line-height: 1.45;
+  --text-small: 0.9375rem; /* 15px: secondary paragraphs */
+  --text-small--line-height: 1.5;
+  --text-body: 1rem; /* 16px */
+  --text-body--line-height: 1.45;
+  --text-lead: 1.0625rem; /* 17px: first paragraph in a sheet */
+  --text-lead--line-height: 1.5;
+  --text-subtitle: 1.125rem; /* 18px */
+  --text-subtitle--line-height: 1.45;
+  --text-sheet-title: clamp(34px, 5vw, 60px);
+  --text-sheet-title--line-height: 1;
+  --text-sheet-title--letter-spacing: -0.04em;
+  --text-sheet-title--font-weight: 700;
+  --text-sheet-title-role: clamp(30px, 4.6vw, 52px);
+  --text-sheet-title-role--line-height: 1;
+  --text-sheet-title-role--letter-spacing: -0.04em;
+  --text-sheet-title-role--font-weight: 700;
+
+  /* ── Type: tile-relative scale (the tile is a size container) ── */
+  --text-tile-label: min(5.2cqh, 6.4cqw);
+  --text-tile-label--line-height: 1.2;
+
+  --leading-base: 1.45;
+  --tracking-tightest: -0.045em;
+  --tracking-display: -0.04em;
+  --tracking-snug: -0.02em;
+
+  /* ── Spacing (Tailwind's 4px scale covers the rest) ── */
+  --spacing-tile: min(8cqh, 8cqw); /* tile inner padding */
+  --spacing-tile-label: 3cqh; /* gap between the two halves of a tile label */
+  --spacing-gutter: clamp(12px, 3vw, 24px); /* page side padding */
+  --spacing-viewport-inset: 12px; /* min distance between a sheet and the viewport edge */
+
+  --container-page: 1120px;
+  --container-sheet: 680px;
+
+  /* ── Radius ── */
+  --radius-tile: 28px;
+  --radius-sheet: 32px;
+  --radius-sheet-morph: 60px; /* sheet corners while it grows out of a tile */
+  --radius-panel: 20px; /* demo boxes inside sheets */
+  --radius-card: 14px;
+  --radius-field: 12px;
+
+  /* ── Shadow ── */
+  --shadow-tile: 0 1px 2px rgb(0 0 0 / 0.04), 0 14px 30px -18px rgb(0 0 0 / 0.18);
+  --shadow-tile-hover: 0 1px 2px rgb(0 0 0 / 0.04), 0 22px 40px -18px rgb(0 0 0 / 0.28);
+  --shadow-tile-drag: 0 30px 60px -20px rgb(0 0 0 / 0.4);
+  --shadow-sheet: 0 40px 80px -30px rgb(0 0 0 / 0.5);
+
+  /* ── Easing ── */
+  --ease-spring: cubic-bezier(0.3, 1.2, 0.4, 1); /* tiles settling into place */
+  --ease-bounce: cubic-bezier(0.3, 1.4, 0.5, 1);
+  --ease-swell: cubic-bezier(0.3, 1.5, 0.5, 1);
+  --ease-pop: cubic-bezier(0.3, 1.6, 0.5, 1);
+  --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-sheet-in: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --ease-sheet-out: cubic-bezier(0.5, 0, 0.6, 0.4);
+
+  /* ── Animation ── */
+  --animate-rise: rise 0.5s var(--ease-out-soft) 0.18s both;
+  --animate-fade: fade 0.3s both;
+
+  @keyframes rise {
+    from {
+      transform: translateY(16px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
+
+/* Runtime tokens: read by JS or used in custom CSS below; they create no utilities. */
+:root {
+  --duration-sheet-in: 620ms;
+  --duration-sheet-out: 380ms;
+  --duration-tile-bg: 0.6s;
+  --duration-tile-shadow: 0.3s;
+  --delay-rise-2: 0.26s;
+  --delay-rise-3: 0.34s;
+}
+
+/* Dark theme values. The switch itself is wired up in step 6. */
+[data-theme="dark"] {
+  --color-bg: #08080b;
+  --color-tile: #141418;
+  --color-well: #08080b;
+  --color-fg: #f5f5f7;
+  --color-muted: #a1a1a6;
+  --color-line: #26262d;
+  --shadow-tile: inset 0 0 0 1px rgb(255 255 255 / 0.07), 0 0 46px -22px rgb(248 169 196 / 0.55);
+  --shadow-tile-hover:
+    inset 0 0 0 1px rgb(248 169 196 / 0.45), 0 0 60px -18px rgb(248 169 196 / 0.8);
+}
+
+@media (max-width: 620px) {
+  :root {
+    --radius-tile: 22px;
+  }
+}
+
+/* ───────────────────────────── Custom utilities ───────────────────────────── */
+
+/* Tiles are size containers so their contents scale with cqh / cqw. */
+@utility container-size {
+  container-type: size;
+}
+
+@utility transition-tile {
+  transition-property: background-color, box-shadow;
+  transition-duration: var(--duration-tile-bg), var(--duration-tile-shadow);
+}
+
+@utility size-sheet {
+  width: min(var(--container-sheet), calc(100% - 2 * var(--spacing-viewport-inset)));
+  max-width: none;
+  max-height: calc(100% - 2 * var(--spacing-viewport-inset));
+}
+
+/* Sheet header: every child rises in together. */
+@utility rise-children {
+  & > * {
+    animation: var(--animate-rise);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    & > * {
+      animation: none;
+    }
+  }
+}
+
+/* Sheet body: children rise in one after another. */
+@utility rise-stagger {
+  & > * {
+    animation: var(--animate-rise);
+  }
+
+  & > :nth-child(2) {
+    animation-delay: var(--delay-rise-2);
+  }
+
+  & > :nth-child(3) {
+    animation-delay: var(--delay-rise-3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    & > * {
+      animation: none;
+    }
+  }
+}
+
+/* ───────────────────────────── Base ───────────────────────────── */
 
 @layer base {
   html {
     background-color: var(--color-bg);
     color: var(--color-fg);
     -webkit-font-smoothing: antialiased;
+    scrollbar-gutter: stable;
+  }
+
+  /* Freeze the page behind an open sheet. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-pink-soft);
+    color: var(--color-fg);
   }
 }

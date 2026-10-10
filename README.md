@@ -38,9 +38,15 @@ src/types                  shared types
 
 Folders are added as each step needs them.
 
+During development, http://localhost:3000/kit shows the tokens and UI components. It
+returns 404 in production builds.
+
 ## Principles
 
 - Design tokens live only in `src/app/globals.css`; components never use raw values.
+  Shared values (colours, type, radius, shadow, easing, tile padding) are tokens. The one
+  exception is proportional geometry that belongs to a single tile's artwork, written in
+  `cqh` / `cqw` because every tile is a size container.
 - Content is typed data in `src/content`; adding a project never touches a component.
 - Server components by default; client components only where interaction needs them.
 - One tile per folder; logic lives in hooks or plain functions, not in markup.
