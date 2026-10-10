@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens live in this file only. Step 1 sets the page colours and font stacks;
+ * step 2 adds the full set (colour, type scale, radius, shadow, spacing, easing).
+ */
+@theme {
+  --color-bg: #f5f5f7;
+  --color-fg: #1d1d1f;
+  --color-muted: #6e6e73;
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", var(--font-inter),
+    "Helvetica Neue", sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    -webkit-font-smoothing: antialiased;
+  }
+}
