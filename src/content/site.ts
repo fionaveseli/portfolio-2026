@@ -7,6 +7,7 @@ export const site = {
   tagline: "A frontend engineer with an eye for design.",
   description: "Fiona Veseli is a frontend engineer with an eye for design.",
   email: "fionaveseli2@gmail.com",
+  credit: "Designed and built by Fiona Veseli, 2026.",
   links: {
     linkedin: "https://www.linkedin.com/in/fiona-veseli/",
   },

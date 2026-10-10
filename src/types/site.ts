@@ -9,6 +9,8 @@ export interface SiteConfig {
   /** Meta description for search and link previews. */
   readonly description: string;
   readonly email: string;
+  /** Footer line under the grid. */
+  readonly credit: string;
   readonly links: {
     readonly linkedin: string;
   };
