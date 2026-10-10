@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jetBrainsMono.variable}`}>
-      <body className="font-sans text-base leading-normal">{children}</body>
+      <body className="font-sans text-body">{children}</body>
     </html>
   );
 }
