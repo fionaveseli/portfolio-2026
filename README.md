@@ -31,7 +31,8 @@ src/components/grid        BentoGrid, FilterNav, useGridLayout, useDragReorder
 src/components/tiles       one folder per tile
 src/components/case-studies  ProjectSheet, RoleSheet, demos/
 src/components/cursor      CustomCursor
-src/content                typed site data: projects, experience, stack, site
+src/content                typed site data: projects, experience, stack, grid, tile copy, site
+src/assets                 images imported by components (Kira's photos)
 src/lib                    grid packing, game logic, utilities
 src/types                  shared types
 ```
