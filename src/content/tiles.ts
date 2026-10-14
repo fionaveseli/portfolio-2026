@@ -14,8 +14,8 @@ export const intro = {
 export const about = {
   label: "About",
   aside: "Who I am",
-  lead: "Four years of full-time frontend work on real products. ",
-  body: "I've built production SaaS for healthcare and enterprise video, working closely with backend and product teams. I care about clean, scalable code and interfaces people enjoy using. I like the business side too, meetings included, and I build products of my own.",
+  lead: "I'm a bit all over the place, in a good way. ",
+  body: "Four years as a full-time frontend developer, building production apps with backend and product teams. I love design, building things and solving problems. I like the business side too, and I love meetings, which I know is rare. On the side I build products of my own.",
 } as const;
 
 export const terminal = {
