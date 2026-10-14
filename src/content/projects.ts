@@ -50,12 +50,12 @@ export const projects = [
     },
   },
   {
-    slug: "dr-nicholas-wallace",
-    title: "Dr. Nicholas Wallace",
+    slug: "medical-practice",
+    title: "Medical Practice",
     kind: "Client website",
     tone: { bg: "#0E3B43", fg: "#A9E5D2" },
     wordmark: {
-      text: "Dr. Nicholas Wallace",
+      text: "Medical Practice",
       family: "serif",
       weight: 400,
       size: 21,

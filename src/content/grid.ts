@@ -25,7 +25,7 @@ const tiles = [
   { id: "spot", span: 1, category: "work" },
   { id: "terminal", span: 1, category: "about" },
   { id: "kira", span: 2, category: "play" },
-  { id: "dr-nicholas-wallace", span: 1, category: "work" },
+  { id: "medical-practice", span: 1, category: "work" },
   { id: "map", span: 1, category: "about" },
   { id: "education", span: 1, category: "about" },
   { id: "lexxical", span: 1, category: "work" },

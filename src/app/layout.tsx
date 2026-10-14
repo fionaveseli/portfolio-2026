@@ -28,7 +28,7 @@ const bricolage = Bricolage_Grotesque({
   display: "swap",
 });
 
-/** Project wordmarks: Dr. Nicholas Wallace and Lexxical. */
+/** Project wordmarks: Medical Practice and Lexxical. */
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
