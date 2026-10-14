@@ -15,7 +15,7 @@ export const about = {
   label: "About",
   aside: "Who I am",
   lead: "I'm a bit all over the place, in a good way. ",
-  body: "I like the business side. I love meetings, which I know is rare. I love design, and I love building things and solving problems. By day I'm a frontend developer, and on the side I build products of my own.",
+  body: "Four years as a full-time frontend developer, building production apps with backend and product teams. I love design, building things and solving problems. I like the business side too, and I love meetings, which I know is rare. On the side I build products of my own.",
 } as const;
 
 export const terminal = {
