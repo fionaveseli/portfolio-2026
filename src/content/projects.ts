@@ -8,17 +8,31 @@ import type { Project } from "@/types/project";
  */
 export const projects = [
   {
-    slug: "ku",
-    title: "KU?",
+    slug: "nomi",
+    title: "Nomi",
     kind: "Own product",
     tone: { bg: "#FF5FA2", fg: "#111114" },
     wordmark: {
-      text: "KU?",
+      text: "nomi",
       family: "grotesque",
       weight: 800,
-      size: 23,
+      size: 34,
       leading: 0.85,
       tracking: -0.06,
+    },
+  },
+  {
+    slug: "dayli",
+    title: "Dayli",
+    kind: "Mobile app",
+    tone: { bg: "#FFD6E0", fg: "#2B1B3D" },
+    wordmark: {
+      text: "Dayli",
+      family: "sans",
+      weight: 600,
+      size: 30,
+      leading: 0.9,
+      tracking: -0.05,
     },
   },
   {
