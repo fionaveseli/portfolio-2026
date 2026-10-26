@@ -20,7 +20,7 @@ const jetBrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-/** Project wordmarks: KU? and Spot. */
+/** Project wordmarks: Nomi and Spot. */
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   axes: ["opsz"],
