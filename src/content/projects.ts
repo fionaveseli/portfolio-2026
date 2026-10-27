@@ -4,7 +4,7 @@ import type { Project } from "@/types/project";
  * Every project, in numbering order: the first is "01". Adding one here adds its tile
  * to the grid (at the end, unless src/content/grid.ts places it) and its page.
  *
- * Case-study details (summary, role, stack, links) arrive with the sheets in step 5.
+ * Each project's details fill the sheet that opens from its tile.
  */
 export const projects = [
   {
@@ -20,6 +20,17 @@ export const projects = [
       leading: 0.85,
       tracking: -0.06,
     },
+    summary:
+      "A food app for finding the right place for whatever you're craving. Launching in Amsterdam, as a website first.",
+    highlights: [
+      "My own product, from the idea and the brand to the design and the code.",
+      "Bold and mobile-first, but made to work just as well on a laptop.",
+      "More to show once it launches.",
+    ],
+    role: "Founder, design and build",
+    year: "2026",
+    stack: "Next.js, TypeScript, TailwindCSS",
+    status: "Coming soon",
   },
   {
     slug: "dayli",
@@ -34,6 +45,18 @@ export const projects = [
       leading: 0.9,
       tracking: -0.05,
     },
+    summary:
+      "A visual life planner: a calendar for fixed commitments, a checklist for flexible tasks, and Life Chapters for the bigger goals.",
+    highlights: [
+      "Started from juggling a full-time job with university.",
+      "A native app for iPhone and Android, with a website that explains it.",
+      "Built end to end: frontend, backend, mobile and an AI-guided onboarding.",
+    ],
+    role: "Own product, design and build",
+    year: "2026",
+    stack: "Expo, React Native, Supabase",
+    status: "In progress",
+    link: { label: "View on GitHub", href: "https://github.com/fionaveseli/dayli" },
   },
   {
     slug: "sasa",
@@ -48,6 +71,14 @@ export const projects = [
       leading: 0.9,
       tracking: -0.06,
     },
+    summary: "A platform for running board game tournaments, built as a university project.",
+    highlights: [
+      "Built the app and its logic from a design I was given.",
+      "Full stack: a Next.js frontend with a Node.js backend.",
+    ],
+    role: "Development",
+    stack: "Next.js, TypeScript, Zustand, TailwindCSS, Node.js",
+    link: { label: "View on GitHub", href: "https://github.com/fionaveseli/sasa" },
   },
   {
     slug: "spot",
@@ -62,6 +93,11 @@ export const projects = [
       leading: 0.85,
       tracking: -0.06,
     },
+    summary:
+      "A social app for making friends and finding your people through real-world group activities.",
+    highlights: ["My own product idea, shaped from the concept to the brand direction."],
+    role: "Concept and brand",
+    status: "Concept",
   },
   {
     slug: "dr-nicholas-wallace",
@@ -75,6 +111,10 @@ export const projects = [
       size: 21,
       leading: 0.95,
     },
+    summary: "A website for a medical practice.",
+    highlights: ["Built in Next.js and TailwindCSS."],
+    role: "Frontend",
+    stack: "Next.js, TailwindCSS",
   },
   {
     slug: "lexxical",
@@ -89,6 +129,17 @@ export const projects = [
       leading: 0.9,
       italic: true,
     },
+    summary:
+      "A full rebrand of a calm, interactive learning platform. No gamification, no rewards, just a quiet place to learn.",
+    highlights: [
+      "Reworking the landing page, the dashboard and the learning canvas.",
+      "A warm, watercolour-inspired direction: human, but never childish.",
+      "Working directly with the founder on design, features and priorities.",
+    ],
+    role: "Design and frontend",
+    year: "2026",
+    stack: "React",
+    status: "In progress",
   },
   {
     slug: "flight-search-chatbot",
@@ -103,6 +154,10 @@ export const projects = [
       leading: 0.98,
       tracking: -0.035,
     },
+    summary: "A mobile chatbot that helps you search for flights by just asking.",
+    highlights: ["A React Native app talking to a Node.js backend."],
+    role: "Development",
+    stack: "React Native, Node.js",
   },
   {
     slug: "visiar-assist",
@@ -117,6 +172,14 @@ export const projects = [
       leading: 0.95,
       tracking: -0.04,
     },
+    summary: "A healthcare SaaS platform for managing files and documents, with AI built in.",
+    highlights: [
+      "Built grid and table views, tagging, filtering and advanced search.",
+      "Worked closely with the backend and product teams on UX decisions.",
+    ],
+    role: "Frontend, at Visiar Healthcare",
+    year: "2023 to 2026",
+    stack: "React, Next.js, Zustand, TailwindCSS",
   },
 ] as const satisfies readonly Project[];
 

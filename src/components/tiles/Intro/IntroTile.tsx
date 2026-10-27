@@ -25,7 +25,7 @@ export function IntroTile() {
               <span className="text-fg">{intro.taglineMark}</span>
             </span>
           </h1>
-          <p className="text-[length:6.4cqh] leading-[1.35] text-muted">{intro.hint}</p>
+          <p className="text-[length:6.4cqh] leading-[1.35] text-muted">{intro.blurb}</p>
         </div>
       </TileBody>
     </Tile>

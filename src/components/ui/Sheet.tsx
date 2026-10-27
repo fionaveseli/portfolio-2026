@@ -121,6 +121,8 @@ export function Sheet({ label, tone, onClose, getOrigin, children }: SheetProps)
     <SheetContext value={context}>
       <dialog
         ref={dialogRef}
+        // Rendered inside a grid tile: keep presses in the sheet from dragging the tile.
+        data-nodrag=""
         aria-label={label}
         onCancel={handleCancel}
         onClick={handleClick}
