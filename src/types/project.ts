@@ -18,6 +18,13 @@ export interface Wordmark {
   readonly italic?: boolean;
 }
 
+/** An outside link shown at the bottom of a project sheet. */
+export interface ProjectLink {
+  /** Pill text, e.g. "View on GitHub". */
+  readonly label: string;
+  readonly href: `https://${string}`;
+}
+
 export interface Project {
   /** URL slug and grid tile id: /work/<slug>. */
   readonly slug: string;
@@ -26,4 +33,16 @@ export interface Project {
   readonly kind: string;
   readonly tone: Tone;
   readonly wordmark: Wordmark;
+  /** First paragraph of the project sheet: what it is, in a sentence or two. */
+  readonly summary: string;
+  /** What I did and what's worth knowing, one point per line. */
+  readonly highlights: readonly string[];
+  /** My part in it, e.g. "Design and build". */
+  readonly role: string;
+  /** e.g. "2026" or "2023 to 2026"; left out when unsure. */
+  readonly year?: string;
+  readonly stack?: string;
+  /** e.g. "Coming soon" or "In progress"; left out once it's live. */
+  readonly status?: string;
+  readonly link?: ProjectLink;
 }

@@ -6,9 +6,10 @@ export const intro = {
   eyebrow: "Portfolio 2026",
   wave: "Hello",
   greeting: "Hi, I'm Fiona.",
-  taglineLead: "A frontend engineer with ",
-  taglineMark: "an eye for design.",
-  hint: "Everything here does something. Have a poke around.",
+  taglineLead: "Frontend engineer, ",
+  taglineMark: "product-minded.",
+  blurb:
+    "I build thoughtful interfaces professionally and turn my own ideas into real products after hours.",
 } as const;
 
 export const about = {
@@ -101,4 +102,15 @@ export const stackTile = {
 
 export const projectTile = {
   view: "View",
+} as const;
+
+export const projectSheet = {
+  /** Eyebrow: "Project 03 of 08". */
+  counter: (number: string, total: number) =>
+    `Project ${number} of ${String(total).padStart(2, "0")}`,
+  role: "Role",
+  year: "Year",
+  stack: "Stack",
+  status: "Status",
+  close: "Close",
 } as const;
