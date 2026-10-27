@@ -6,8 +6,8 @@ export const intro = {
   eyebrow: "Portfolio 2026",
   wave: "Hello",
   greeting: "Hi, I'm Fiona.",
-  taglineLead: "Frontend Engineer by day. ",
-  taglineMark: "Product Engineer by night.",
+  taglineLead: "Frontend engineer, ",
+  taglineMark: "product-minded.",
   blurb:
     "I build thoughtful interfaces professionally and turn my own ideas into real products after hours.",
 } as const;

@@ -4,7 +4,7 @@ export const site = {
   name: "Fiona Veseli",
   firstName: "Fiona",
   title: "Fiona Veseli, portfolio",
-  tagline: "Frontend Engineer by day. Product Engineer by night.",
+  tagline: "Frontend engineer, product-minded.",
   description:
     "Fiona Veseli builds thoughtful interfaces professionally and turns her own ideas into real products after hours.",
   email: "fionaveseli2@gmail.com",
