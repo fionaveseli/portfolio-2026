@@ -17,12 +17,15 @@ export interface ProjectSheetProps {
 
 /** A project's details: what it is, what I did, and the facts in rows. */
 export function ProjectSheet({ project, onClose, getOrigin }: ProjectSheetProps) {
-  const rows = [
+  const allRows: readonly { label: string; value: string | undefined }[] = [
     { label: projectSheet.role, value: project.role },
     { label: projectSheet.year, value: project.year },
     { label: projectSheet.stack, value: project.stack },
     { label: projectSheet.status, value: project.status },
-  ].filter((row): row is { label: string; value: string } => row.value !== undefined);
+  ];
+  const rows = allRows.filter(
+    (row): row is { label: string; value: string } => row.value !== undefined,
+  );
 
   return (
     <Sheet label={project.title} tone={project.tone} onClose={onClose} getOrigin={getOrigin}>
