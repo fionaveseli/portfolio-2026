@@ -23,6 +23,9 @@ export interface Role {
   /** Sheet header colours; the timeline bar uses `tone.bg` unless `barColor` is set. */
   readonly tone: Tone;
   readonly barColor?: string;
+  /** A sentence or two at the top of the role sheet: what the work was. */
+  readonly intro: string;
+  /** What I did, one point per line. */
   readonly highlights: readonly string[];
   readonly stack: string;
 }
