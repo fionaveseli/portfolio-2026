@@ -8,5 +8,7 @@ export const brand = {
   fg: "#1d1d1f", // --color-fg
   muted: "#6e6e73", // --color-muted
   pink: "#f8a9c4", // --color-pink
+  pinkSoft: "#fbc9da", // --color-pink-soft
+  paper: "#ffffff", // --color-paper
   pinkStrong: "#f472a0", // --color-pink-strong
 } as const;

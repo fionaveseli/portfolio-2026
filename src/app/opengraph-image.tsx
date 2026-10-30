@@ -19,12 +19,12 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 80,
-          background: brand.bg,
+          background: brand.pinkSoft,
           color: brand.fg,
         }}
       >
         <div style={{ display: "flex", gap: 16 }}>
-          {[brand.pink, brand.pinkStrong, brand.fg].map((colour) => (
+          {[brand.paper, brand.pinkStrong, brand.fg].map((colour) => (
             <div
               key={colour}
               style={{ width: 56, height: 56, borderRadius: 16, background: colour }}
@@ -35,11 +35,13 @@ export default function OpengraphImage() {
           <div style={{ fontSize: 88, fontWeight: 700, letterSpacing: -4 }}>
             {`Hi, I'm ${site.firstName}.`}
           </div>
-          <div style={{ fontSize: 48, color: brand.muted, letterSpacing: -1.5 }}>
+          <div style={{ fontSize: 48, color: brand.fg, opacity: 0.72, letterSpacing: -1.5 }}>
             {site.tagline}
           </div>
         </div>
-        <div style={{ fontSize: 28, color: brand.muted }}>{site.url.replace("https://", "")}</div>
+        <div style={{ fontSize: 28, color: brand.fg, opacity: 0.6 }}>
+          {site.url.replace("https://", "")}
+        </div>
       </div>
     ),
     size,
