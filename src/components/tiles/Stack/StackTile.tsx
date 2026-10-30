@@ -56,13 +56,15 @@ function WindowContent({ item }: { item: StackItem | undefined }) {
  */
 export function StackTile() {
   const [open, setOpen] = useState(-1);
+  /** The dock's single Tab stop; arrow keys move it. */
+  const [focusable, setFocusable] = useState(0);
   const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const reduceMotion = useReducedMotion() === true;
   const item = tools[open];
 
   const toggle = (index: number) => setOpen((current) => (current === index ? -1 : index));
 
-  // Arrow keys move along the dock; Tab still moves in and out of it.
+  // Arrow keys, Home and End move along the dock; Tab moves in and out of it.
   const onDockKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const current = buttonsRef.current.findIndex((button) => button === document.activeElement);
     const last = tools.length - 1;
@@ -73,6 +75,7 @@ export function StackTile() {
     else if (event.key === "End") next = last;
     else return;
     event.preventDefault();
+    setFocusable(next);
     buttonsRef.current[next]?.focus();
   };
 
@@ -98,7 +101,7 @@ export function StackTile() {
           </div>
 
           {/* Window content. Both states sit in the same box, so the window never resizes. */}
-          <div aria-live="polite" className="relative min-h-0 flex-1">
+          <div aria-live="polite" className="relative min-h-0 flex-1 overflow-hidden">
             <AnimatePresence initial={false}>
               <motion.div
                 key={item?.name ?? "intro"}
@@ -119,7 +122,7 @@ export function StackTile() {
             aria-label={stackTile.dockLabel}
             data-nodrag=""
             onKeyDown={onDockKeyDown}
-            className="flex flex-none justify-center border-t border-line bg-well/70 px-[3cqh] pt-[2.4cqh] pb-[3.2cqh] @max-[440px]:justify-start @max-[440px]:overflow-x-auto @max-[440px]:px-3 @max-[440px]:pt-2.5 @max-[440px]:pb-3.5 @max-[440px]:[scrollbar-width:none]"
+            className="flex flex-none justify-center border-t border-line bg-well/70 px-[3cqh] pt-[2.6cqh] pb-[3cqh] @max-[440px]:justify-start @max-[440px]:overflow-x-auto @max-[440px]:px-3 @max-[440px]:pt-2.5 @max-[440px]:pb-3.5 @max-[440px]:[scrollbar-width:none]"
           >
             <div className="flex gap-[min(1.8cqh,0.9cqw)] @max-[440px]:gap-2">
               {tools.map((tool, index) => {
@@ -133,8 +136,10 @@ export function StackTile() {
                     type="button"
                     aria-label={tool.name}
                     aria-pressed={active}
+                    tabIndex={index === focusable ? 0 : -1}
+                    onFocus={() => setFocusable(index)}
                     onClick={() => toggle(index)}
-                    className="group/icon relative size-[min(9.5cqh,5cqw)] flex-none animate-icon-in cursor-pointer rounded-[27%] p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg motion-reduce:animate-none @max-[440px]:size-9"
+                    className="group/icon relative size-[min(12cqh,6.2cqw)] flex-none animate-icon-in cursor-pointer rounded-[27%] p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg motion-reduce:animate-none @max-[440px]:size-9"
                     style={{ animationDelay: `${index * 0.04}s` }}
                   >
                     <StackIcon
