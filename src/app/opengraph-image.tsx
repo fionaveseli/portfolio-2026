@@ -33,7 +33,7 @@ export default function OpengraphImage() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <div style={{ fontSize: 88, fontWeight: 700, letterSpacing: -4 }}>
-            Hi, I&apos;m {site.firstName}.
+            {`Hi, I'm ${site.firstName}.`}
           </div>
           <div style={{ fontSize: 48, color: brand.muted, letterSpacing: -1.5 }}>
             {site.tagline}
