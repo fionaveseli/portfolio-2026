@@ -2,8 +2,9 @@
 
 import { useCallback, useMemo, useRef, useState, type ReactNode } from "react";
 
+import { cn } from "@/lib/cn";
 import { moveTo, viewSequence } from "@/lib/grid";
-import type { GridItem } from "@/types/grid";
+import type { GridItem, TileSpan } from "@/types/grid";
 
 import { useDragReorder } from "./useDragReorder";
 import { useGridFilter } from "./GridFilter";
@@ -25,6 +26,16 @@ export interface BentoGridProps {
  *
  * The DOM order never changes: only positions do.
  */
+/**
+ * Column spans for the CSS fallback before the grid measures itself. A three-wide tile
+ * is two wide on the two-column phone grid.
+ */
+const spanClasses: Record<TileSpan, string> = {
+  1: "",
+  2: "col-span-2",
+  3: "col-span-2 @min-[560px]/grid:col-span-3",
+};
+
 export function BentoGrid({ pinned, items, tiles }: BentoGridProps) {
   const { filter } = useGridFilter();
   const [order, setOrder] = useState<readonly string[]>(() => items.map((item) => item.id));
@@ -87,7 +98,7 @@ export function BentoGrid({ pinned, items, tiles }: BentoGridProps) {
             data-slot={item.id}
             data-cur={item.cursor}
             data-pinned={pinnedIds.has(item.id) ? "" : undefined}
-            className={item.span === 2 ? "group/slot col-span-2" : "group/slot"}
+            className={cn("group/slot", spanClasses[item.span])}
           >
             {tiles[item.id]}
           </div>
