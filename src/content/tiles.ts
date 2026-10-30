@@ -15,8 +15,21 @@ export const intro = {
 export const about = {
   label: "About",
   aside: "Who I am",
-  lead: "I'm a bit all over the place, in a good way. ",
-  body: "Four years as a full-time frontend developer, building production apps with backend and product teams. I love design, building things and solving problems. I like the business side too, and I love meetings, which I know is rare. On the side I build products of my own.",
+  /** The tile shows the lead and the short line; the sheet tells the rest. */
+  lead: "I'm a frontend engineer who likes being involved in more than just the frontend. ",
+  body: "I've spent the past few years building production applications and working closely with backend teams.",
+  more: "Read more",
+  sheetEyebrow: "About",
+  sheetTitle: "Hi, I'm Fiona.",
+  tone: { bg: "#1D1D1F", fg: "#FFFFFF" },
+  paragraphs: [
+    "I'm a frontend engineer who likes being involved in more than just the frontend.",
+    "I've spent the past few years building production applications, working closely with backend teams, and figuring out how to turn complicated ideas into interfaces that actually make sense.",
+    "I love the creative side of development just as much as the technical side. Design, product decisions, understanding why something should exist in the first place: all of it interests me. I'm also one of those rare developers who genuinely enjoys meetings.",
+    "Outside of work, I'm usually experimenting with an idea of my own. Sometimes it becomes a real product, sometimes it's just something I wanted to see if I could build.",
+    "I guess I just really like making things.",
+  ],
+  close: "Close",
 } as const;
 
 export const terminal = {
