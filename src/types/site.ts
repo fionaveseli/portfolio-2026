@@ -1,6 +1,8 @@
 /** Site-wide facts used by metadata, the intro tile and the contact tile. */
 export interface SiteConfig {
   readonly name: string;
+  /** Production address, used for canonical URLs, the sitemap and link previews. */
+  readonly url: `https://${string}`;
   readonly firstName: string;
   /** Browser tab / share title. */
   readonly title: string;
