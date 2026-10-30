@@ -105,6 +105,27 @@ export const projects = [
     stack: "Next.js, TypeScript, Zustand, TailwindCSS, Node.js",
     link: { label: "View on GitHub", href: "https://github.com/fionaveseli/sasa" },
   },
+  {
+    slug: "medical-practice",
+    title: "Medical practice",
+    kind: "Client website",
+    tone: { bg: "#0E3B43", fg: "#A9E5D2" },
+    wordmark: {
+      text: "Medical Practice",
+      family: "serif",
+      weight: 400,
+      size: 24,
+      leading: 0.95,
+    },
+    summary:
+      "An informative website for a spinal surgeon, explaining the surgeries he performs, with fun facts about spinal problems along the way.",
+    highlights: [
+      "I designed it and built the frontend, working on it together with my brother.",
+      "Informative pages for each surgery, written to be easy to follow, plus fun facts about common spinal problems.",
+    ],
+    role: "Design and frontend",
+    stack: "Next.js, TailwindCSS",
+  },
 ] as const satisfies readonly Project[];
 
 /** "01", "02" … from a project's position in the list. */
