@@ -7,6 +7,8 @@ import { projectNumber, projects } from "@/content/projects";
 import { projectSheet } from "@/content/tiles";
 import type { Project } from "@/types/project";
 
+import { ProjectScreenshots } from "./ProjectScreenshots";
+
 export interface ProjectSheetProps {
   project: Project;
   /** Called once the close animation has finished; the parent then unmounts the sheet. */
@@ -36,6 +38,12 @@ export function ProjectSheet({ project, onClose, getOrigin }: ProjectSheetProps)
       />
       <SheetBody>
         <p className="text-lead">{project.summary}</p>
+        {project.screenshots && (
+          <ProjectScreenshots
+            screenshots={project.screenshots}
+            label={projectSheet.screenshots(project.title)}
+          />
+        )}
         <ul className="flex flex-col gap-2 text-small text-sheet-muted">
           {project.highlights.map((highlight) => (
             <li key={highlight} className="flex gap-2.5">

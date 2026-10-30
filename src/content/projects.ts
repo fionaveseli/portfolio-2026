@@ -1,3 +1,10 @@
+import dayliDesktopCalendar from "@/assets/projects/dayli/desktop-calendar.webp";
+import dayliDesktopToday from "@/assets/projects/dayli/desktop-today.webp";
+import dayliPhoneTasks from "@/assets/projects/dayli/phone-tasks.webp";
+import dayliPhoneToday from "@/assets/projects/dayli/phone-today.webp";
+import nomiDesktopHero from "@/assets/projects/nomi/desktop-hero.webp";
+import nomiDesktopSolo from "@/assets/projects/nomi/desktop-solo.webp";
+import nomiPhoneHero from "@/assets/projects/nomi/phone-hero.webp";
 import type { Project } from "@/types/project";
 
 /**
@@ -31,6 +38,11 @@ export const projects = [
     year: "2026",
     stack: "Next.js, TypeScript, TailwindCSS",
     status: "Coming soon",
+    screenshots: [
+      { src: nomiDesktopHero, alt: "Nomi's landing page: Different cravings. Same table." },
+      { src: nomiDesktopSolo, alt: "Nomi's landing page section for eating alone, with a craving picker" },
+      { src: nomiPhoneHero, alt: "Nomi's landing page on a phone" },
+    ],
   },
   {
     slug: "dayli",
@@ -57,7 +69,12 @@ export const projects = [
     year: "2026",
     stack: "Expo, React Native, Supabase",
     status: "In progress",
-    link: { label: "View on GitHub", href: "https://github.com/fionaveseli/dayli" },
+    screenshots: [
+      { src: dayliDesktopToday, alt: "Dayli's home screen on desktop, with today's plan to approve" },
+      { src: dayliDesktopCalendar, alt: "Dayli's week calendar on desktop" },
+      { src: dayliPhoneToday, alt: "Dayli's home screen on a phone" },
+      { src: dayliPhoneTasks, alt: "Dayli's task list on a phone" },
+    ],
   },
   {
     slug: "blue-bamboo",
