@@ -22,16 +22,14 @@ const tiles = [
   { id: "about", span: 2, category: "about" },
   { id: "nomi", span: 1, category: "work" },
   { id: "dayli", span: 1, category: "work" },
-  { id: "sasa", span: 1, category: "work" },
+  { id: "blue-bamboo", span: 1, category: "work" },
   { id: "terminal", span: 1, category: "about" },
   { id: "kira", span: 2, category: "play" },
-  { id: "medical-practice", span: 1, category: "work" },
   { id: "map", span: 1, category: "about" },
   { id: "education", span: 1, category: "about" },
-  { id: "lexxical", span: 1, category: "work" },
+  { id: "sasa", span: 1, category: "work" },
   { id: "contributions", span: 1, category: "play" },
   { id: "lights", span: 1, category: "play" },
-  { id: "flight-search-chatbot", span: 1, category: "work" },
   { id: "contact", span: 2, category: "about" },
 ] as const satisfies readonly GridItem[];
 

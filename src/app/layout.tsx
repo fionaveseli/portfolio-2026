@@ -29,7 +29,7 @@ const bricolage = Bricolage_Grotesque({
   display: "swap",
 });
 
-/** Project wordmarks: Medical practice and Lexxical. */
+/** Project wordmark: Blue Bamboo. */
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
