@@ -9,7 +9,7 @@ export const intro = {
   taglineLead: "Frontend engineer, ",
   taglineMark: "product-minded.",
   blurb:
-    "I build thoughtful interfaces professionally and turn my own ideas into real products after hours.",
+    "I spend a lot of time figuring out how things should work, how they should feel, and whether I could build them myself. The answer to that last one usually becomes a side project.",
 } as const;
 
 export const about = {
