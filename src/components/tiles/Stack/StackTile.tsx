@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useRef, useState, type KeyboardEvent } from "react";
 
 import { Tile, TileBody } from "@/components/ui/Tile";
 import { stack, stackIntro } from "@/content/stack";
@@ -8,143 +9,161 @@ import { stackTile } from "@/content/tiles";
 import { cn } from "@/lib/cn";
 import type { StackItem } from "@/types/stack";
 
-import { useDockMagnify } from "./useDockMagnify";
+import { StackIcon } from "./StackIcon";
 
-const allTools = `${stack.map((item) => item.name).join(", ")}.`;
+/** Content swap: a short fade with a small rise, around 200ms. */
+const SWAP = { duration: 0.2, ease: [0.2, 0.8, 0.2, 1] } as const;
 
-function windowText(item: StackItem | undefined) {
-  if (!item) return { title: stackIntro.title, heading: stackIntro.heading, detail: allTools };
-  return {
-    title: `${item.name}, ${item.category}`,
-    heading: item.name,
-    detail: `${stackTile.usedInPrefix}${item.usedIn}`,
-  };
+const tools: readonly StackItem[] = stack;
+
+function WindowContent({ item }: { item: StackItem | undefined }) {
+  if (!item) {
+    return (
+      <>
+        <h3 className="text-[length:8.6cqh] leading-[1.08] font-bold tracking-tightest @max-[440px]:text-[19px]">
+          {stackIntro.heading}
+        </h3>
+        <p className="max-w-[46ch] text-[length:5cqh] leading-[1.4] text-muted @max-[440px]:text-[12px]">
+          {stackIntro.description}
+        </p>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div className="flex items-center gap-[3.4cqh] @max-[440px]:gap-3">
+        <StackIcon item={item} className="size-[14cqh] flex-none @max-[440px]:size-10" />
+        <div className="flex min-w-0 flex-col items-start gap-[1.4cqh]">
+          <span className="rounded-full bg-well px-[2.2cqh] py-[0.8cqh] text-[length:3.8cqh] leading-none font-semibold text-muted @max-[440px]:px-2 @max-[440px]:py-1 @max-[440px]:text-[10px]">
+            {item.category}
+          </span>
+          <h3 className="truncate text-[length:9.5cqh] leading-none font-bold tracking-tightest @max-[440px]:text-[22px]">
+            {item.name}
+          </h3>
+        </div>
+      </div>
+      <p className="max-w-[52ch] text-[length:5cqh] leading-[1.4] text-muted @max-[440px]:text-[12px]">
+        {item.description}
+      </p>
+    </>
+  );
 }
 
-/** A tiny desktop: click an app in the dock and its window tells you where I used it. */
+/**
+ * A tiny macOS app: pick a tool in the dock and the window says how I use it.
+ * Picking the open tool again, or the red button, goes back to the start.
+ */
 export function StackTile() {
-  const [hovered, setHovered] = useState(-1);
   const [open, setOpen] = useState(-1);
-  /** Counts window changes, so the window pops in again each time. */
-  const [opens, setOpens] = useState(0);
-  const { iconsRef, onPointerMove, onPointerLeave } = useDockMagnify(setHovered);
+  const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const reduceMotion = useReducedMotion() === true;
+  const item = tools[open];
 
-  const text = windowText(stack[open]);
+  const toggle = (index: number) => setOpen((current) => (current === index ? -1 : index));
 
-  const openApp = (index: number) => {
-    setOpen(index);
-    setHovered(index);
-    setOpens((count) => count + 1);
-  };
-
-  const closeApp = () => {
-    setOpen(-1);
-    setOpens((count) => count + 1);
+  // Arrow keys move along the dock; Tab still moves in and out of it.
+  const onDockKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const current = buttonsRef.current.findIndex((button) => button === document.activeElement);
+    const last = tools.length - 1;
+    let next: number;
+    if (event.key === "ArrowRight") next = current === last ? 0 : current + 1;
+    else if (event.key === "ArrowLeft") next = current <= 0 ? last : current - 1;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = last;
+    else return;
+    event.preventDefault();
+    buttonsRef.current[next]?.focus();
   };
 
   return (
     <Tile className="bg-(image:--gradient-wall)">
-      <TileBody padding="none" className="items-center gap-[4cqh] p-[5cqh]">
-        {/* The window. */}
-        <div
-          key={opens}
-          className={cn(
-            "flex min-h-0 flex-1 origin-bottom flex-col self-stretch overflow-hidden rounded-[5cqh] bg-tile shadow-window",
-            opens > 0 && "animate-window-in motion-reduce:animate-none",
-          )}
-        >
-          <div className="flex flex-none items-center gap-[2.2cqh] border-b border-line px-[4cqh] py-[3cqh]">
+      <TileBody padding="none" className="p-[4.5cqh] @max-[440px]:p-2.5">
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[5cqh] bg-tile shadow-window @max-[440px]:rounded-2xl">
+          {/* Title bar. */}
+          <div className="flex flex-none items-center gap-[2cqh] border-b border-line px-[4cqh] py-[2.6cqh] @max-[440px]:gap-1.5 @max-[440px]:px-3 @max-[440px]:py-2">
             <button
               type="button"
               data-nodrag=""
               aria-label={stackTile.closeWindow}
-              onClick={closeApp}
-              className="relative block size-[4.4cqh] min-w-0 cursor-pointer rounded-full bg-mac-red p-0 after:absolute after:-inset-3.5 after:content-['']"
+              disabled={!item}
+              onClick={() => setOpen(-1)}
+              className="relative block size-[4cqh] min-w-0 rounded-full bg-mac-red p-0 not-disabled:cursor-pointer after:absolute after:-inset-3 after:content-[''] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg @max-[440px]:size-2.5"
             />
-            <i className="block size-[4.4cqh] rounded-full bg-mac-yellow" />
-            <i className="block size-[4.4cqh] rounded-full bg-mac-green" />
-            <span className="ml-[2cqh] text-[length:4.8cqh] leading-none font-semibold text-muted">
-              {text.title}
+            <i className="block size-[4cqh] rounded-full bg-mac-yellow @max-[440px]:size-2.5" />
+            <i className="block size-[4cqh] rounded-full bg-mac-green @max-[440px]:size-2.5" />
+            <span className="ml-[1.6cqh] truncate text-[length:4.4cqh] leading-none font-semibold text-muted @max-[440px]:text-[11px]">
+              {item ? item.name : stackIntro.title}
             </span>
           </div>
-          <div
-            aria-live="polite"
-            className="flex min-h-0 flex-1 flex-col justify-center gap-[1.6cqh] px-[5cqh] @max-[440px]:px-3.5"
-          >
-            <span className="truncate text-[length:11.5cqh] leading-none font-bold tracking-tightest whitespace-nowrap @max-[440px]:text-[22px]">
-              {text.heading}
-            </span>
-            <span className="text-[length:5cqh] leading-[1.35] text-muted @max-[440px]:text-[11.5px] @max-[440px]:leading-[1.3]">
-              {text.detail}
-            </span>
-          </div>
-        </div>
 
-        {/* The dock. */}
-        <div
-          data-nodrag=""
-          onPointerMove={onPointerMove}
-          onPointerLeave={onPointerLeave}
-          className="flex h-[min(12cqh,5.9cqw)] flex-none items-end gap-[min(1.5cqh,0.75cqw)] rounded-[6cqh] bg-dock px-[2.6cqh] pt-[2cqh] pb-[3cqh] backdrop-blur-md @max-[440px]:h-auto @max-[440px]:max-w-73 @max-[440px]:flex-wrap @max-[440px]:items-center @max-[440px]:justify-center @max-[440px]:gap-2 @max-[440px]:rounded-panel @max-[440px]:p-2"
-        >
-          {stack.map((item, index) => {
-            const running = index === open;
-            return (
-              <button
-                key={item.name}
-                ref={(element) => {
-                  if (!element) return;
-                  iconsRef.current.set(index, element);
-                  return () => {
-                    iconsRef.current.delete(index);
-                  };
-                }}
-                type="button"
-                aria-label={item.name}
-                onFocus={() => setHovered(index)}
-                onClick={() => openApp(index)}
-                className="relative size-[min(11.5cqh,5.6cqw)] flex-none animate-icon-in cursor-pointer p-0 transition-[width,height] duration-140 ease-out motion-reduce:animate-none @max-[440px]:size-9.5"
-                style={{ animationDelay: `${index * 0.04}s` }}
+          {/* Window content. Both states sit in the same box, so the window never resizes. */}
+          <div aria-live="polite" className="relative min-h-0 flex-1">
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={item?.name ?? "intro"}
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: reduceMotion ? 0 : -6 }}
+                transition={SWAP}
+                className="absolute inset-0 flex flex-col justify-center gap-[2.6cqh] px-[6cqh] @max-[440px]:gap-2 @max-[440px]:px-3.5"
               >
-                {/* The icon itself; re-keyed to hop each time its app opens. */}
-                <span
-                  key={running ? opens : "idle"}
-                  className={cn(
-                    "container-size flex size-full items-center justify-center rounded-[27%] shadow-icon",
-                    running && "animate-hop motion-reduce:animate-none",
-                  )}
-                  style={{ background: item.icon.bg, color: item.icon.fg }}
-                >
-                  {"path" in item ? (
-                    <svg viewBox="0 0 24 24" aria-hidden="true" className="block size-[58cqw]">
-                      <path d={item.path} fill="currentColor" />
-                    </svg>
-                  ) : (
-                    <span className="text-[length:44cqw] leading-none font-bold">
-                      {item.monogram}
+                <WindowContent item={item} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* The dock, anchored to the bottom of the window. */}
+          <div
+            role="toolbar"
+            aria-label={stackTile.dockLabel}
+            data-nodrag=""
+            onKeyDown={onDockKeyDown}
+            className="flex flex-none justify-center border-t border-line bg-well/70 px-[3cqh] pt-[2.4cqh] pb-[3.2cqh] @max-[440px]:justify-start @max-[440px]:overflow-x-auto @max-[440px]:px-3 @max-[440px]:pt-2.5 @max-[440px]:pb-3.5 @max-[440px]:[scrollbar-width:none]"
+          >
+            <div className="flex gap-[min(1.8cqh,0.9cqw)] @max-[440px]:gap-2">
+              {tools.map((tool, index) => {
+                const active = index === open;
+                return (
+                  <button
+                    key={tool.name}
+                    ref={(element) => {
+                      buttonsRef.current[index] = element;
+                    }}
+                    type="button"
+                    aria-label={tool.name}
+                    aria-pressed={active}
+                    onClick={() => toggle(index)}
+                    className="group/icon relative size-[min(9.5cqh,5cqw)] flex-none animate-icon-in cursor-pointer rounded-[27%] p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg motion-reduce:animate-none @max-[440px]:size-9"
+                    style={{ animationDelay: `${index * 0.04}s` }}
+                  >
+                    <StackIcon
+                      item={tool}
+                      className={cn(
+                        "size-full transition-transform duration-200 ease-out-soft group-hover/icon:-translate-y-[1.2cqh] group-hover/icon:scale-110 motion-reduce:transition-none motion-reduce:group-hover/icon:translate-y-0 motion-reduce:group-hover/icon:scale-100",
+                        active && "-translate-y-[0.6cqh] scale-105",
+                      )}
+                    />
+                    {/* Tooltip: pointer hover or keyboard focus only, never on touch. */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute bottom-[calc(100%+1.6cqh)] left-1/2 z-3 -translate-x-1/2 translate-y-1 rounded-md bg-sheet-fg px-2 py-1 text-caption font-semibold whitespace-nowrap text-paper opacity-0 transition-[opacity,translate] duration-150 group-hover/icon:translate-y-0 group-hover/icon:opacity-100 group-focus-visible/icon:translate-y-0 group-focus-visible/icon:opacity-100 @max-[440px]:hidden"
+                    >
+                      {tool.name}
                     </span>
-                  )}
-                </span>
-                {/* Tooltip. */}
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    "pointer-events-none absolute bottom-[calc(100%+8px)] left-1/2 z-3 -translate-x-1/2 translate-y-1.5 rounded-lg bg-sheet-fg px-2.5 py-1.25 text-caption font-semibold whitespace-nowrap text-paper opacity-0 transition-[opacity,translate] duration-200 @max-[440px]:hidden",
-                    hovered === index && "translate-y-0 opacity-100",
-                  )}
-                >
-                  {item.name}
-                </span>
-                {/* Running indicator. */}
-                {running && (
-                  <span
-                    aria-hidden="true"
-                    className="absolute top-[calc(100%+1cqh)] left-1/2 size-[1.3cqh] -translate-x-1/2 rounded-full bg-fg @max-[440px]:hidden"
-                  />
-                )}
-              </button>
-            );
-          })}
+                    {/* Running indicator. */}
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "absolute top-[calc(100%+0.9cqh)] left-1/2 size-[1.1cqh] -translate-x-1/2 rounded-full bg-fg opacity-0 transition-opacity duration-200 @max-[440px]:top-[calc(100%+3px)] @max-[440px]:size-1",
+                        active && "opacity-100",
+                      )}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </TileBody>
     </Tile>

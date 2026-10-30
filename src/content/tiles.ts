@@ -108,8 +108,8 @@ export const map = {
 } as const;
 
 export const stackTile = {
-  usedInPrefix: "Used in: ",
   closeWindow: "Close window",
+  dockLabel: "My stack",
 } as const;
 
 export const projectTile = {
