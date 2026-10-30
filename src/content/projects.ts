@@ -106,6 +106,41 @@ export const projects = [
     stack: "Next.js, TypeScript, Zustand, TailwindCSS, Node.js",
     link: { label: "View on GitHub", href: "https://github.com/fionaveseli/sasa" },
   },
+  {
+    slug: "medical-practice",
+    title: "Medical practice",
+    kind: "Client website",
+    tone: { bg: "#0E3B43", fg: "#A9E5D2" },
+    wordmark: {
+      text: "Medical Practice",
+      family: "serif",
+      weight: 400,
+      size: 24,
+      leading: 0.95,
+    },
+    summary: "A website for a private medical practice.",
+    highlights: ["Built in Next.js and TailwindCSS."],
+    role: "Frontend",
+    stack: "Next.js, TailwindCSS",
+  },
+  {
+    slug: "flight-search-chatbot",
+    title: "Flight Search Chatbot",
+    kind: "Mobile app",
+    tone: { bg: "#7DD3FC", fg: "#0F172A" },
+    wordmark: {
+      text: "Flight Search Chatbot",
+      family: "sans",
+      weight: 600,
+      size: 19,
+      leading: 0.98,
+      tracking: -0.035,
+    },
+    summary: "A mobile chatbot that helps you search for flights by just asking.",
+    highlights: ["A React Native app talking to a Node.js backend."],
+    role: "Development",
+    stack: "React Native, Node.js",
+  },
 ] as const satisfies readonly Project[];
 
 /** "01", "02" … from a project's position in the list. */
