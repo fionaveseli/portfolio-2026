@@ -18,7 +18,7 @@ export const about = {
   body: "I started coding pretty young, and somewhere along the way it turned into a career.",
   more: "Read more",
   sheetEyebrow: "About",
-  sheetTitle: "Hi, I'm Fiona.",
+  sheetTitle: "A bit more about me.",
   tone: { bg: "#1D1D1F", fg: "#FFFFFF" },
   paragraphs: [
     "I'm a little all over the place, in a good way.",

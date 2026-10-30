@@ -49,7 +49,7 @@ export function ExperienceRows({ bars }: ExperienceRowsProps) {
             aria-haspopup="dialog"
             aria-label={`${role.company}, ${role.title}, ${role.period}. ${experienceTile.open}.`}
             onClick={() => setOpen(role)}
-            className="group/row flex w-full cursor-pointer items-center gap-[4cqh] rounded-[1.6cqh] border-t border-line py-[1.9cqh] text-left transition-[padding,background-color] duration-300 ease-bounce outline-none hover:bg-well/60 hover:pr-[1.6cqh] hover:pl-[2.4cqh] focus-visible:bg-well/60 focus-visible:pr-[1.6cqh] focus-visible:pl-[2.4cqh] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-fg @max-[440px]:gap-[9px]"
+            className="group/row flex w-full cursor-pointer items-center gap-[4cqh] rounded-[1.6cqh] border-t border-line py-[1.9cqh] text-left transition-[padding,background-color] duration-300 ease-bounce outline-none hover:bg-well/60 hover:pr-[1.6cqh] hover:pl-[2.4cqh] focus-visible:bg-well/60 focus-visible:pr-[1.6cqh] focus-visible:pl-[2.4cqh] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-fg motion-reduce:transition-none @max-[440px]:gap-[9px]"
           >
             <b className="min-w-0 shrink-0 grow-0 basis-[28%] truncate text-[length:5.8cqh] leading-[1.15] font-semibold tracking-[-0.025em] @max-[440px]:basis-[36%] @max-[440px]:text-[12.5px]">
               {role.companyShort}
