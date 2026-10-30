@@ -27,13 +27,14 @@ export interface BentoGridProps {
  * The DOM order never changes: only positions do.
  */
 /**
- * Column spans for the CSS fallback before the grid measures itself. A three-wide tile
- * is two wide on the two-column phone grid.
+ * Column spans for the CSS fallback before the grid measures itself. Wide tiles are
+ * capped at the number of columns the grid has.
  */
 const spanClasses: Record<TileSpan, string> = {
   1: "",
   2: "col-span-2",
   3: "col-span-2 @min-[560px]/grid:col-span-3",
+  4: "col-span-2 @min-[560px]/grid:col-span-3 @min-[900px]/grid:col-span-4",
 };
 
 export function BentoGrid({ pinned, items, tiles }: BentoGridProps) {
