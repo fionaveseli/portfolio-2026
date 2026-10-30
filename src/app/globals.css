@@ -309,7 +309,7 @@
   --duration-theme-bg: 0.6s;
   --duration-theme-fg: 0.4s;
 
-  --gradient-wall: linear-gradient(135deg, #fce1ea 0%, #e9e3ff 52%, #d8e8ff 100%);
+  --gradient-wall: linear-gradient(135deg, #fdeaf0 0%, #efeaff 52%, #e3eeff 100%);
 
   /* Grid */
   --grid-row-min: 228px; /* minimum row height with 3 or 4 columns */
@@ -343,7 +343,7 @@
     inset 0 0 0 1px rgb(248 169 196 / 0.45), 0 0 60px -18px rgb(248 169 196 / 0.8);
   --color-dock: rgb(255 255 255 / 0.14);
   --color-win-cell: #5a2f40;
-  --gradient-wall: linear-gradient(135deg, #3a2030 0%, #262042 52%, #16263f 100%);
+  --gradient-wall: linear-gradient(135deg, #33212c 0%, #24213c 52%, #18253a 100%);
 }
 
 @media (max-width: 620px) {
