@@ -104,7 +104,6 @@ export const lights = {
 
 export const contact = {
   label: "Contact",
-  aside: "Open to work",
   headingLead: "Let's work ",
   headingMark: "together.",
   linkedinLabel: "LinkedIn",
