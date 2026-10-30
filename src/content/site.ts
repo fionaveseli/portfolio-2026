@@ -2,6 +2,7 @@ import type { SiteConfig } from "@/types/site";
 
 export const site = {
   name: "Fiona Veseli",
+  url: "https://fionaveseli.com",
   firstName: "Fiona",
   title: "Fiona Veseli, portfolio",
   tagline: "Frontend engineer, product-minded.",
