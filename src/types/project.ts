@@ -1,5 +1,3 @@
-import type { StaticImageData } from "next/image";
-
 import type { Tone } from "@/types/ui";
 
 /** Font family a project's name is set in on its tile. */
@@ -27,13 +25,6 @@ export interface ProjectLink {
   readonly href: `https://${string}`;
 }
 
-/** A screenshot shown in the project sheet. Phone shots are recognised by being taller than wide. */
-export interface ProjectScreenshot {
-  readonly src: StaticImageData;
-  /** What the screenshot shows, for screen readers. */
-  readonly alt: string;
-}
-
 export interface Project {
   /** URL slug and grid tile id: /work/<slug>. */
   readonly slug: string;
@@ -54,6 +45,4 @@ export interface Project {
   /** e.g. "Coming soon" or "In progress"; left out once it's live. */
   readonly status?: string;
   readonly link?: ProjectLink;
-  /** Shown in a row under the summary, in this order. */
-  readonly screenshots?: readonly ProjectScreenshot[];
 }

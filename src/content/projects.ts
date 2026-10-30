@@ -1,10 +1,3 @@
-import dayliDesktopCalendar from "@/assets/projects/dayli/desktop-calendar.webp";
-import dayliDesktopToday from "@/assets/projects/dayli/desktop-today.webp";
-import dayliPhoneTasks from "@/assets/projects/dayli/phone-tasks.webp";
-import dayliPhoneToday from "@/assets/projects/dayli/phone-today.webp";
-import nomiDesktopHero from "@/assets/projects/nomi/desktop-hero.webp";
-import nomiDesktopSolo from "@/assets/projects/nomi/desktop-solo.webp";
-import nomiPhoneHero from "@/assets/projects/nomi/phone-hero.webp";
 import type { Project } from "@/types/project";
 
 /**
@@ -38,11 +31,6 @@ export const projects = [
     year: "2026",
     stack: "Next.js, TypeScript, TailwindCSS",
     status: "Coming soon",
-    screenshots: [
-      { src: nomiDesktopHero, alt: "Nomi's landing page: Different cravings. Same table." },
-      { src: nomiDesktopSolo, alt: "Nomi's landing page section for eating alone, with a craving picker" },
-      { src: nomiPhoneHero, alt: "Nomi's landing page on a phone" },
-    ],
   },
   {
     slug: "dayli",
@@ -69,12 +57,6 @@ export const projects = [
     year: "2026",
     stack: "Expo, React Native, Supabase",
     status: "In progress",
-    screenshots: [
-      { src: dayliDesktopToday, alt: "Dayli's home screen on desktop, with today's plan to approve" },
-      { src: dayliDesktopCalendar, alt: "Dayli's week calendar on desktop" },
-      { src: dayliPhoneToday, alt: "Dayli's home screen on a phone" },
-      { src: dayliPhoneTasks, alt: "Dayli's task list on a phone" },
-    ],
   },
   {
     slug: "blue-bamboo",
@@ -122,6 +104,27 @@ export const projects = [
     role: "Development",
     stack: "Next.js, TypeScript, Zustand, TailwindCSS, Node.js",
     link: { label: "View on GitHub", href: "https://github.com/fionaveseli/sasa" },
+  },
+  {
+    slug: "medical-practice",
+    title: "Medical practice",
+    kind: "Client website",
+    tone: { bg: "#0E3B43", fg: "#A9E5D2" },
+    wordmark: {
+      text: "Medical Practice",
+      family: "serif",
+      weight: 400,
+      size: 24,
+      leading: 0.95,
+    },
+    summary:
+      "An informative website for a spinal surgeon, explaining the surgeries he performs, with fun facts about spinal problems along the way.",
+    highlights: [
+      "I designed it and built the frontend, working on it together with my brother.",
+      "Informative pages for each surgery, written to be easy to follow, plus fun facts about common spinal problems.",
+    ],
+    role: "Design and frontend",
+    stack: "Next.js, TailwindCSS",
   },
 ] as const satisfies readonly Project[];
 

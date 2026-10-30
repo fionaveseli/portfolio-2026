@@ -124,7 +124,6 @@ export const projectTile = {
 } as const;
 
 export const projectSheet = {
-  screenshots: (title: string) => `${title} screenshots`,
   /** Eyebrow: "Project 03 of 08". */
   counter: (number: string, total: number) =>
     `Project ${number} of ${String(total).padStart(2, "0")}`,
