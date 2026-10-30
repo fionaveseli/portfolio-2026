@@ -68,6 +68,15 @@ export const experienceTile = {
   aside: "Click a role",
   axisStart: "2020",
   axisEnd: "Now",
+  open: "Open details",
+} as const;
+
+export const roleSheet = {
+  highlights: "What I worked on",
+  role: "Role",
+  dates: "Dates",
+  stack: "Technologies",
+  close: "Close",
 } as const;
 
 export const education = {
