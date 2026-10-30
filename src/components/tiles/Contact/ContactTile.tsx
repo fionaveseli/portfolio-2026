@@ -10,7 +10,7 @@ export function ContactTile() {
   return (
     <Tile tone={tone}>
       <TileBody justify="between">
-        <TileLabel aside={contact.aside}>{contact.label}</TileLabel>
+        <TileLabel>{contact.label}</TileLabel>
         <div className="flex flex-col items-start gap-[4cqh]">
           <span className="text-[length:min(19cqh,9.2cqw)] leading-none font-bold tracking-tightest">
             {contact.headingLead}
