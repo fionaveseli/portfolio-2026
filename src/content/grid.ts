@@ -23,7 +23,7 @@ const tiles = [
   { id: "nomi", span: 1, category: "work" },
   { id: "dayli", span: 1, category: "work" },
   { id: "blue-bamboo", span: 1, category: "work" },
-  { id: "terminal", span: 2, category: "about" },
+  { id: "terminal", span: 1, category: "about" },
   { id: "kira", span: 2, category: "play" },
   { id: "map", span: 1, category: "about" },
   { id: "education", span: 1, category: "about" },
@@ -31,7 +31,7 @@ const tiles = [
   { id: "medical-practice", span: 1, category: "work" },
   { id: "contributions", span: 1, category: "play" },
   { id: "lights", span: 1, category: "play" },
-  { id: "contact", span: 2, category: "about" },
+  { id: "contact", span: 4, category: "about" },
 ] as const satisfies readonly GridItem[];
 
 const isProject = (id: string) => projects.some((project) => project.slug === id);

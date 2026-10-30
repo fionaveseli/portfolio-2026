@@ -3,7 +3,7 @@ export type TileCategory = "about" | "work" | "play";
 export type GridFilter = "all" | TileCategory;
 
 /** How many columns a tile spans. Every tile is one row tall. */
-export type TileSpan = 1 | 2;
+export type TileSpan = 1 | 2 | 3 | 4;
 
 export interface GridItem {
   readonly id: string;
