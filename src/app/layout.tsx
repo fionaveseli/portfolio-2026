@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import type { ReactNode } from "react";
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body className="font-sans text-body">
         {children}
         <CustomCursor />
+        <Analytics />
       </body>
     </html>
   );
